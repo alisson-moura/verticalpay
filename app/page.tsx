@@ -17,7 +17,6 @@ export default function Home() {
       <PwFeature />
       <MachinePricing />
       <Faq />
-      <Testimonial />
       <FooterCTA />
       <Footer />
     </div>

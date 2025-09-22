@@ -24,14 +24,41 @@ export function Footer() {
     <footer className="bg-foreground text-background">
       <div className="container mx-auto px-4 py-8">
         {/* Seção principal do rodapé */}
-        <div className="flex flex-col items-center gap-6 text-center md:flex-row md:justify-between md:text-left">
+        <div className="flex flex-col items-center gap-8 text-center md:flex-row md:justify-between md:text-left">
           {/* Logo e Slogan */}
           <div>
             <LogoVerticalPay variant="light" size="sm" />
-            <p className="text-sm text-gray-300">
+            <p className="mt-2 text-sm text-gray-300">
               Soluções em pagamento para o seu negócio crescer.
             </p>
           </div>
+
+          {/* INÍCIO: Informações de Contato */}
+          <div className="text-sm">
+            <p className="font-semibold text-white mb-2">Contato</p>
+            <p className="text-gray-300">
+              {/* Substitua pelo seu telefone */}
+              Telefone:{" "}
+              <a href="tel:+5511999999999" className="hover:text-white">
+                (11) 99999-9999
+              </a>
+            </p>
+            <p className="text-gray-300">
+              {/* Substitua pelo seu e-mail */}
+              Email:{" "}
+              <a
+                href="mailto:contato@verticalpay.com.br"
+                className="hover:text-white"
+              >
+                contato@verticalpay.com.br
+              </a>
+            </p>
+            <p className="text-gray-300">
+              {/* Substitua pelo seu CNPJ */}
+              CNPJ: 00.000.000/0001-00
+            </p>
+          </div>
+          {/* FIM: Informações de Contato */}
 
           {/* Ícones de Redes Sociais */}
           <div className="flex items-center gap-5">

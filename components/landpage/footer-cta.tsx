@@ -5,11 +5,12 @@ export function FooterCTA() {
     <section className="py-12 md:py-16 bg-background">
       <div className="container mx-auto px-4 text-center">
         <h2 className="text-3xl font-bold sm:text-4xl lg:text-5xl mb-6">
-          Pronto para lucrar mais e vender sem preocupação?
+          Pronto para lucrar e vender sem preocupação?
         </h2>
         <p className="text-lg text-muted-foreground sm:text-xl mb-8 max-w-3xl mx-auto">
-          Junte-se a milhares de empreendedores que já escolheram a VerticalPay
-          para fazer seus negócios crescerem.
+          Junte-se à nós e se preocupe somente em vender e atender seus
+          clientes, e a VerticalPay se encarrega de cuidar das suas tecnologias
+          de pagamentos.
         </p>
         <Button
           size="lg"

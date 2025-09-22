@@ -40,9 +40,10 @@ export function Faq() {
                   Quais são as taxas da VerticalPay?
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground">
-                  Nossas taxas são as mais competitivas do mercado, variando de
-                  acordo com o volume de vendas e tipo de transação. Entre em
-                  contato para conhecer as condições especiais para seu negócio.
+                  Nossas taxas são competitivas e reais, sem pegadinhas,
+                  variando de acordo com o volume de vendas e tipo de transação.
+                  Entre em contato para conhecer as condições especiais para seu
+                  negocio.
                 </AccordionContent>
               </AccordionItem>
 
@@ -82,9 +83,12 @@ export function Faq() {
                   Qual o prazo para receber as vendas?
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground">
-                  O prazo varia conforme o tipo de transação: débito em 1 dia
-                  útil, crédito à vista em 1 dia útil e parcelado conforme as
-                  parcelas. Consulte as condições específicas do seu plano.
+                  o prazo varia conforme o plano contratado. Planos D+1 recebe
+                  em até um dia útil as vendas realizadas no debito, pix,
+                  credito as vista e credito parcelado em até 21 vezes. Plano
+                  D+30 todas as vendas e tipos de transações são recebidas no
+                  vencimento de 30 dias. nesse plano as taxas são bem mais
+                  baratas.
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
