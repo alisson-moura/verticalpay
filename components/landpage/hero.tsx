@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { Phone } from "lucide-react";
 import { RainbowButton } from "../magicui/rainbow-button";
+import { TaxCards } from "./tax-cards";
+import { ContactModal } from "./contact-form";
 
 export function Hero() {
   return (
@@ -21,10 +23,15 @@ export function Hero() {
               querem lucrar mais, com máquinas seguras, fáceis de usar e taxas
               que cabem no seu bolso.
             </p>
-            <RainbowButton size="lg" className="w-full">
-              <Phone className="h-4 w-4 mr-4" />
-              Converse com um de nossos Vendedores
-            </RainbowButton>
+            <TaxCards />
+            <ContactModal
+              children={
+                <RainbowButton size="lg" className="w-full">
+                  <Phone className="h-4 w-4 mr-4" />
+                  Converse com um de nossos Vendedores
+                </RainbowButton>
+              }
+            />
           </div>
 
           {/* Imagem */}

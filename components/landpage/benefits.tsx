@@ -23,15 +23,15 @@ interface Feature43Props {
 // Array de benefícios atualizado, sem emojis nos títulos.
 const defaultReasons: Reason[] = [
   {
-    title: "Taxas realmente baixas",
+    title: "Taxas Reais e sem Pegadinha",
     description:
-      "Fique com mais lucro a cada venda. Nossas taxas são as mais competitivas do mercado.",
+      "Faça suas vendas sem ter surpresas com mudanças de taxas repentinas.",
     icon: <TrendingDown className="size-8 text-primary" />,
   },
   {
     title: "Ativação rápida",
     description:
-      "Maquininha pronta para usar no mesmo dia. Comece a vender imediatamente.",
+      "Maquinas Prontas para uso em até um dia útil após aprovação do credenciamento.",
     icon: <Zap className="size-8 text-primary" />,
   },
   {
