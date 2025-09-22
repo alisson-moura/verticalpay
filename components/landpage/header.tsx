@@ -9,7 +9,7 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
-import { Menu } from "lucide-react";
+import { Menu, User } from "lucide-react";
 import { useState } from "react";
 
 const navigationItems = [
@@ -70,6 +70,10 @@ export function Header() {
           <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
             Falar com Vendedor
           </Button>
+          <Button variant="outline" className="-ml-6">
+            <User className="h-5 w-5" />
+            Já sou cliente
+          </Button>
         </div>
 
         <div className="block lg:hidden">
@@ -98,6 +102,10 @@ export function Header() {
                   onClick={() => setIsOpen(false)}
                 >
                   Falar com Vendedor
+                </Button>
+                <Button variant="outline" className="-mt-2">
+                  <User className="h-5 w-5" />
+                  Já sou cliente
                 </Button>
               </div>
             </SheetContent>
