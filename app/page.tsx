@@ -4,6 +4,7 @@ import { Footer } from "../components/landpage/footer";
 import { FooterCTA } from "../components/landpage/footer-cta";
 import { Header } from "../components/landpage/header";
 import { Hero } from "../components/landpage/hero";
+import { MachinePricing } from "../components/landpage/machine-pricing";
 import { PwFeature } from "../components/landpage/pw-feature";
 import Testimonial from "../components/landpage/testimonial";
 
@@ -14,6 +15,7 @@ export default function Home() {
       <Hero />
       <Benefits />
       <PwFeature />
+      <MachinePricing />
       <Faq />
       <Testimonial />
       <FooterCTA />

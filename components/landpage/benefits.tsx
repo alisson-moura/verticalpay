@@ -66,7 +66,7 @@ export const Benefits = ({
   reasons = defaultReasons,
 }: Feature43Props) => {
   return (
-    <section className="py-20 bg-muted/30">
+    <section id="vantagens" className="py-14 bg-muted/30 scroll-mt-20">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl lg:text-4xl font-bold mb-4">{heading}</h2>

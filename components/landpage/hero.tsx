@@ -6,7 +6,10 @@ import { ContactModal } from "./contact-form";
 
 export function Hero() {
   return (
-    <section className="flex items-center py-8 sm:py-12 bg-gradient-to-br from-primary/5 to-secondary/10">
+    <section
+      id="hero"
+      className="flex items-center py-8 sm:py-12 bg-gradient-to-br from-primary/5 to-secondary/10 scroll-mt-20"
+    >
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center">
           {/* Texto */}
@@ -24,14 +27,12 @@ export function Hero() {
               que cabem no seu bolso.
             </p>
             <TaxCards />
-            <ContactModal
-              children={
-                <RainbowButton size="lg" className="w-full">
-                  <Phone className="h-4 w-4 mr-4" />
-                  Converse com um de nossos Vendedores
-                </RainbowButton>
-              }
-            />
+            <ContactModal>
+              <RainbowButton size="lg" className="w-full">
+                <Phone className="h-4 w-4 mr-4" />
+                Converse com um de nossos Vendedores
+              </RainbowButton>
+            </ContactModal>
           </div>
 
           {/* Imagem */}

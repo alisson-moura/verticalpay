@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export function PwFeature() {
   return (
-    <section className="py-4 bg-muted">
+    <section id="portal-web" className="py-4 bg-muted scroll-mt-20">
       <div className="container mx-auto px-4">
         <div className="grid gap-12 items-center lg:grid-cols-5">
           <div className="space-y-8 lg:col-span-3">
