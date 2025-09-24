@@ -38,7 +38,7 @@ export function Hero() {
           {/* Imagem */}
           <div className="relative flex justify-center lg:justify-end">
             <Image
-              src="/maquinas.png"
+              src="/banner.png"
               alt="Maquininhas VerticalPay"
               width={600}
               height={500}

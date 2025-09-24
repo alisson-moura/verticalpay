@@ -1,5 +1,7 @@
+import Image from "next/image";
 import { LogoVerticalPay } from "./logo";
 import { JSX } from "react";
+import { Globe, Mail, MessageCircle, Phone } from "lucide-react";
 
 // Um componente auxiliar para os ícones, para não repetir o código
 const SocialIcon = ({
@@ -27,36 +29,60 @@ export function Footer() {
         <div className="flex flex-col items-center gap-8 text-center md:flex-row md:justify-between md:text-left">
           {/* Logo e Slogan */}
           <div>
-            <LogoVerticalPay variant="light" size="sm" />
+            <Image
+              alt="Logo VerticalPay"
+              src="/logo-branca.png"
+              width={300}
+              height={100}
+            />
             <p className="mt-2 text-sm text-gray-300">
               Soluções em pagamento para o seu negócio crescer.
             </p>
           </div>
 
           {/* INÍCIO: Informações de Contato */}
-          <div className="text-sm">
-            <p className="font-semibold text-white mb-2">Contato</p>
-            <p className="text-gray-300">
-              {/* Substitua pelo seu telefone */}
-              Telefone:{" "}
-              <a href="tel:+5511999999999" className="hover:text-white">
-                (11) 99999-9999
+          <div className="space-y-3">
+            <h4 className="font-semibold  mb-4">Contato</h4>
+
+            {/* Phone with WhatsApp */}
+            <div className="flex items-center gap-3 text-sm">
+              <div className="flex items-center gap-2">
+                <Phone className="w-4 h-4 text-blue-500" />
+                <MessageCircle className="w-4 h-4 text-green-500" />
+              </div>
+              <a
+                href="https://wa.me/5567992338991"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
+                (67) 99233-8991
               </a>
-            </p>
-            <p className="text-gray-300">
-              {/* Substitua pelo seu e-mail */}
-              Email:{" "}
+            </div>
+
+            {/* Website */}
+            <div className="flex items-center gap-3 text-sm">
+              <Globe className="w-4 h-4 text-blue-500" />
+              <a
+                href="https://www.verticaltecpay.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
+                www.verticaltecpay.com
+              </a>
+            </div>
+
+            {/* Email */}
+            <div className="flex items-center gap-3 text-sm">
+              <Mail className="w-4 h-4 text-blue-500" />
               <a
                 href="mailto:contato@verticalpay.com.br"
-                className="hover:text-white"
+                className="text-muted-foreground hover:text-primary transition-colors"
               >
                 contato@verticalpay.com.br
               </a>
-            </p>
-            <p className="text-gray-300">
-              {/* Substitua pelo seu CNPJ */}
-              CNPJ: 00.000.000/0001-00
-            </p>
+            </div>
           </div>
           {/* FIM: Informações de Contato */}
 

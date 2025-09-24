@@ -44,7 +44,7 @@ export function Header() {
         {/* Logo */}
         <a href={"/"}>
           <Image
-            src="/logo.jpeg"
+            src="/logo.png"
             alt="VerticalPay"
             width={200}
             height={60}
