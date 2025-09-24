@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/navigation-menu";
 import { Menu, User } from "lucide-react";
 import { useState } from "react";
+import Link from "next/link";
+import { ContactModal } from "./contact-form";
 
 const navigationItems = [
   { name: "Início", href: "#hero" },
@@ -67,12 +69,16 @@ export function Header() {
               ))}
             </NavigationMenuList>
           </NavigationMenu>
-          <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
-            Falar com Vendedor
-          </Button>
-          <Button variant="outline" className="-ml-6">
-            <User className="h-5 w-5" />
-            Já sou cliente
+          <ContactModal>
+            <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
+              Falar com Vendedor
+            </Button>
+          </ContactModal>
+          <Button asChild variant="outline" className="-ml-6">
+            <Link href="https://cliente.verticalpay.com.br/login">
+              <User className="h-5 w-5" />
+              Já sou cliente
+            </Link>
           </Button>
         </div>
 
@@ -103,9 +109,11 @@ export function Header() {
                 >
                   Falar com Vendedor
                 </Button>
-                <Button variant="outline" className="-mt-2">
-                  <User className="h-5 w-5" />
-                  Já sou cliente
+                <Button asChild variant="outline" className="-mt-2">
+                  <Link href="https://cliente.verticalpay.com.br/login">
+                    <User className="h-5 w-5" />
+                    Já sou cliente
+                  </Link>
                 </Button>
               </div>
             </SheetContent>

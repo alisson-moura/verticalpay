@@ -7,10 +7,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "../ui/accordion";
+import { SupportModal } from "./suport-form";
 
 export function Faq() {
   return (
-    <section id="faq" className="py-20 bg-muted/30 scroll-mt-20">
+    <section id="faq" className="py-20  bg-muted scroll-mt-20">
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           <div className="space-y-8">
@@ -24,9 +25,11 @@ export function Faq() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button className="bg-primary hover:bg-primary/90 text-white px-6 py-3">
-                Tire suas duvidas com o nosso suporte
-              </Button>
+              <SupportModal>
+                <Button className="bg-primary hover:bg-primary/90 text-white px-6 py-3">
+                  Tire suas duvidas com o nosso suporte
+                </Button>
+              </SupportModal>
             </div>
           </div>
 

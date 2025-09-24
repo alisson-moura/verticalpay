@@ -40,8 +40,8 @@ export function Hero() {
             <Image
               src="/banner.png"
               alt="Maquininhas VerticalPay"
-              width={600}
-              height={500}
+              width={700}
+              height={600}
               priority
               className="w-full max-w-xs sm:max-w-md lg:max-w-full h-auto rounded-2xl object-cover object-center"
             />

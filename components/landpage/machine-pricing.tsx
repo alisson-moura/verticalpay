@@ -7,11 +7,11 @@ import Image from "next/image";
 export function MachinePricing() {
   const machines = [
     {
-      id: "smart",
-      name: "VerticalPay Smart",
-      image: "/images/machine-smart.png",
-      price: "R$ 199",
-      originalPrice: "R$ 299",
+      id: "l300",
+      name: "POS VerticalPay L300",
+      image: "/images/L300.png",
+      price: "R$ 600",
+      originalPrice: "R$ 700",
       badge: "MAIS POPULAR",
       description: "Ideal para estabelecimentos com alto volume de vendas",
       features: [
@@ -25,11 +25,11 @@ export function MachinePricing() {
       highlight: true,
     },
     {
-      id: "compact",
-      name: "VerticalPay Compact",
-      image: "/images/machine-compact.png",
-      price: "GRÁTIS",
-      originalPrice: "R$ 199",
+      id: "p2",
+      name: "POS VerticalPay P2",
+      image: "/images/P2.png",
+      price: "R$ 500",
+      originalPrice: "R$ 550",
       badge: "MELHOR CUSTO-BENEFÍCIO",
       description: "Perfeita para pequenos negócios e vendedores autônomos",
       features: [
@@ -43,11 +43,11 @@ export function MachinePricing() {
       highlight: false,
     },
     {
-      id: "portable",
-      name: "VerticalPay Portable",
-      image: "/images/machine-portable.png",
-      price: "R$ 149",
-      originalPrice: "R$ 249",
+      id: "s920",
+      name: "POS VerticalPay S-920",
+      image: "/images/S-920.png",
+      price: "R$ 750",
+      originalPrice: "R$ 600",
       description: "A mais moderna para vendas em movimento",
       features: [
         "Ultra portátil",

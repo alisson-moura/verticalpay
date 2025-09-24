@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { LogoVerticalPay } from "./logo";
 import { JSX } from "react";
 import { Globe, Mail, MessageCircle, Phone } from "lucide-react";
 

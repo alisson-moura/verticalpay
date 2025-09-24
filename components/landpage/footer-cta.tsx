@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Button } from "../ui/button";
 
 export function FooterCTA() {
@@ -19,8 +20,15 @@ export function FooterCTA() {
           // whitespace-normal -> Permite que o texto quebre em múltiplas linhas.
           // px-6 sm:px-8 -> Padding horizontal responsivo.
           className="bg-primary hover:bg-primary/90 text-primary-foreground h-auto whitespace-normal text-base sm:text-lg px-6 sm:px-8 py-4"
+          asChild
         >
-          👉 Quero falar com um vendedor da VerticalPay agora
+          <Link
+            href="https://wa.me/5567992338991"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            👉 Quero falar com um vendedor da VerticalPay agora
+          </Link>
         </Button>
       </div>
     </section>
