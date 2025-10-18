@@ -33,11 +33,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useMobile } from "@/hooks/use-mobile";
+import { PhoneInput } from "../ui/phone-input";
 
 interface SupportModalProps {
   children: React.ReactNode;
 }
 
+// Schema de validação para o formulário de suporte
 const formSchema = z.object({
   nome: z
     .string()
@@ -53,6 +55,13 @@ export function SupportModal({ children }: SupportModalProps) {
   const isMobile = useMobile();
   const [open, setOpen] = useState(false);
 
+  // Estados para controlar o envio e a resposta da API
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionStatus, setSubmissionStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -63,12 +72,53 @@ export function SupportModal({ children }: SupportModalProps) {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("✅ Formulário de suporte enviado:", values);
-    setOpen(false);
-    form.reset();
+  // Função de submit assíncrona para chamar a API de suporte
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsSubmitting(true);
+    setErrorMessage("");
+
+    try {
+      const response = await fetch("/api/support", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(
+          errorData.error || "Ocorreu um erro ao enviar sua mensagem."
+        );
+      }
+
+      setSubmissionStatus("success");
+      form.reset();
+    } catch (error) {
+      setSubmissionStatus("error");
+      setErrorMessage(
+        error instanceof Error ? error.message : "Ocorreu um erro inesperado."
+      );
+      console.error("Falha no envio do formulário de suporte:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
+  // Função para lidar com a abertura/fechamento do modal e resetar o estado
+  const handleOpenChange = (isOpen: boolean) => {
+    setOpen(isOpen);
+    if (!isOpen) {
+      setTimeout(() => {
+        setSubmissionStatus("idle");
+        setErrorMessage("");
+        form.reset();
+      }, 300); // Aguarda a animação de fechar
+    }
+  };
+
+  // Componente interno para o conteúdo do formulário
   const FormContent = () => (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -105,7 +155,13 @@ export function SupportModal({ children }: SupportModalProps) {
             <FormItem>
               <FormLabel>Telefone</FormLabel>
               <FormControl>
-                <Input placeholder="(67) 99999-9999" {...field} />
+                <PhoneInput
+                  id="phone"
+                  type="tel"
+                  required
+                  defaultCountry="BR"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -129,11 +185,15 @@ export function SupportModal({ children }: SupportModalProps) {
           )}
         />
 
+        {submissionStatus === "error" && (
+          <p className="text-sm font-medium text-red-500">{errorMessage}</p>
+        )}
+
         <div className="flex gap-3 pt-4">
           <Button
             type="button"
             variant="outline"
-            onClick={() => setOpen(false)}
+            onClick={() => handleOpenChange(false)}
             className="flex-1 bg-transparent"
           >
             Cancelar
@@ -141,36 +201,68 @@ export function SupportModal({ children }: SupportModalProps) {
           <Button
             type="submit"
             className="flex-1 bg-primary hover:bg-primary/90"
+            disabled={isSubmitting}
           >
-            Enviar
+            {isSubmitting ? "Enviando..." : "Enviar"}
           </Button>
         </div>
       </form>
     </Form>
   );
 
+  // Componente para a mensagem de sucesso
+  const SuccessContent = () => (
+    <div className="flex flex-col items-center justify-center text-center p-8 space-y-4">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="h-16 w-16 text-green-500"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth={2}
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+      <h3 className="text-xl font-semibold">Mensagem enviada!</h3>
+      <p className="text-sm text-gray-500">
+        Recebemos sua solicitação. Nossa equipe de suporte entrará em contato em
+        breve.
+      </p>
+      <Button onClick={() => handleOpenChange(false)} className="mt-4">
+        Fechar
+      </Button>
+    </div>
+  );
+
+  const Content =
+    submissionStatus === "success" ? <SuccessContent /> : <FormContent />;
+
   if (isMobile) {
     return (
-      <Sheet open={open} onOpenChange={setOpen}>
+      <Sheet open={open} onOpenChange={handleOpenChange}>
         <SheetTrigger asChild>{children}</SheetTrigger>
         <SheetContent side="bottom" className="h-[90vh] overflow-y-auto p-4">
           <SheetHeader className="pb-6 text-left">
             <SheetTitle>Fale com nosso suporte</SheetTitle>
           </SheetHeader>
-          <FormContent />
+          {Content}
         </SheetContent>
       </Sheet>
     );
   }
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>Fale com nosso suporte</DialogTitle>
         </DialogHeader>
-        <FormContent />
+        {Content}
       </DialogContent>
     </Dialog>
   );

@@ -39,6 +39,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useMobile } from "@/hooks/use-mobile";
+import { PhoneInput } from "../ui/phone-input";
 
 interface ContactModalProps {
   children: React.ReactNode;
@@ -60,7 +61,13 @@ export function ContactModal({ children }: ContactModalProps) {
   const isMobile = useMobile();
   const [open, setOpen] = useState(false);
 
-  // 2. Configuração do formulário com React Hook Form e Zod Resolver
+  // Estados para controlar o envio e a resposta da API
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionStatus, setSubmissionStatus] = useState<
+    "idle" | "success" | "error"
+  >("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -72,12 +79,55 @@ export function ContactModal({ children }: ContactModalProps) {
     },
   });
 
-  // 3. Função de submit que só é chamada se a validação passar
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("✅ Formulário válido e enviado:", values);
-    setOpen(false); // Fecha o modal
-    form.reset(); // Limpa o formulário para a próxima abertura
+  // 3. Função de submit assíncrona para chamar a API
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsSubmitting(true);
+    setErrorMessage(""); // Limpa erros anteriores
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+
+      if (!response.ok) {
+        // Se a resposta da API não for de sucesso, lança um erro
+        throw new Error(
+          "Ocorreu um erro ao enviar seu contato. Tente novamente."
+        );
+      }
+
+      // Se a resposta for bem-sucedida
+      setSubmissionStatus("success");
+      form.reset();
+    } catch (error) {
+      // Captura erros (de rede ou da API)
+      setSubmissionStatus("error");
+      setErrorMessage(
+        error instanceof Error ? error.message : "Ocorreu um erro inesperado."
+      );
+      console.error("Falha no envio do formulário:", error);
+    } finally {
+      // Garante que o estado de "carregando" seja desativado
+      setIsSubmitting(false);
+    }
   }
+
+  // Função para lidar com a abertura/fechamento do modal e resetar o estado
+  const handleOpenChange = (isOpen: boolean) => {
+    setOpen(isOpen);
+    if (!isOpen) {
+      // Adiciona um pequeno delay para a animação de fechamento antes de resetar
+      setTimeout(() => {
+        setSubmissionStatus("idle");
+        setErrorMessage("");
+        form.reset();
+      }, 300);
+    }
+  };
 
   // Componente interno para o conteúdo do formulário
   const FormContent = () => (
@@ -116,7 +166,13 @@ export function ContactModal({ children }: ContactModalProps) {
             <FormItem>
               <FormLabel>Telefone</FormLabel>
               <FormControl>
-                <Input placeholder="(11) 99999-9999" {...field} />
+                <PhoneInput
+                  id="phone"
+                  type="tel"
+                  required
+                  defaultCountry="BR"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -146,7 +202,6 @@ export function ContactModal({ children }: ContactModalProps) {
             </FormItem>
           )}
         />
-
         <FormField
           control={form.control}
           name="estado"
@@ -174,11 +229,15 @@ export function ContactModal({ children }: ContactModalProps) {
           )}
         />
 
+        {submissionStatus === "error" && (
+          <p className="text-sm font-medium text-red-500">{errorMessage}</p>
+        )}
+
         <div className="flex gap-3 pt-4">
           <Button
             type="button"
             variant="outline"
-            onClick={() => setOpen(false)}
+            onClick={() => handleOpenChange(false)}
             className="flex-1 bg-transparent"
           >
             Cancelar
@@ -186,37 +245,68 @@ export function ContactModal({ children }: ContactModalProps) {
           <Button
             type="submit"
             className="flex-1 bg-primary hover:bg-primary/90"
+            disabled={isSubmitting}
           >
-            Enviar
+            {isSubmitting ? "Enviando..." : "Enviar"}
           </Button>
         </div>
       </form>
     </Form>
   );
 
-  // Lógica para renderizar Dialog ou Sheet continua a mesma
+  // Componente para a mensagem de sucesso
+  const SuccessContent = () => (
+    <div className="flex flex-col items-center justify-center text-center p-8 space-y-4">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="h-16 w-16 text-green-500"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth={2}
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+      <h3 className="text-xl font-semibold">Contato enviado com sucesso!</h3>
+      <p className="text-sm text-gray-500">
+        Sua solicitação foi recebida. A Verticalpay entrará em contato em breve.
+      </p>
+      <Button onClick={() => handleOpenChange(false)} className="mt-4">
+        Fechar
+      </Button>
+    </div>
+  );
+
+  // Conteúdo a ser renderizado (formulário ou mensagem de sucesso)
+  const Content =
+    submissionStatus === "success" ? <SuccessContent /> : <FormContent />;
+
   if (isMobile) {
     return (
-      <Sheet open={open} onOpenChange={setOpen}>
+      <Sheet open={open} onOpenChange={handleOpenChange}>
         <SheetTrigger asChild>{children}</SheetTrigger>
         <SheetContent side="bottom" className="h-[90vh] overflow-y-auto p-4">
           <SheetHeader className="pb-6 text-left">
             <SheetTitle>Conversar com nossos vendedores</SheetTitle>
           </SheetHeader>
-          <FormContent />
+          {Content}
         </SheetContent>
       </Sheet>
     );
   }
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
           <DialogTitle>Conversar com nossos vendedores</DialogTitle>
         </DialogHeader>
-        <FormContent />
+        {Content}
       </DialogContent>
     </Dialog>
   );
