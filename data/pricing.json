@@ -1,0 +1,80 @@
+{
+  "taxes": [
+    {
+      "value": "1,49%",
+      "label": "no Pix",
+      "color": "text-purple-600"
+    },
+    {
+      "value": "1,49%",
+      "label": "no Débito",
+      "color": "text-primary"
+    },
+    {
+      "value": "2,37%",
+      "label": "no Crédito 1x",
+      "color": "text-primary"
+    },
+    {
+      "value": "5,02%",
+      "label": "no Crédito 21x",
+      "color": "text-purple-600"
+    }
+  ],
+  "machines": [
+    {
+      "id": "l300",
+      "name": "POS VerticalPay L300",
+      "image": "/images/L300.png",
+      "price": "R$ 600",
+      "originalPrice": "R$ 700",
+      "badge": "MAIS POPULAR",
+      "description": "Ideal para estabelecimentos com alto volume de vendas",
+      "features": [
+        "Tela touchscreen grande",
+        "Impressora integrada",
+        "Wi-Fi e 4G",
+        "Bateria de longa duração",
+        "Aceita todos os cartões",
+        "Pix grátis e ilimitado"
+      ],
+      "highlight": true
+    },
+    {
+      "id": "p2",
+      "name": "POS VerticalPay P2",
+      "image": "/images/P2.png",
+      "price": "R$ 500",
+      "originalPrice": "R$ 550",
+      "badge": "MELHOR CUSTO-BENEFÍCIO",
+      "description": "Perfeita para pequenos negócios e vendedores autônomos",
+      "features": [
+        "Design compacto",
+        "Teclado físico resistente",
+        "Conectividade 4G",
+        "Fácil de transportar",
+        "Menu intuitivo",
+        "Suporte 24/7"
+      ],
+      "highlight": false
+    },
+    {
+      "id": "s920",
+      "name": "POS VerticalPay S-920",
+      "image": "/images/S-920.png",
+      "price": "R$ 750",
+      "originalPrice": "R$ 600",
+      "description": "A mais moderna para vendas em movimento",
+      "features": [
+        "Ultra portátil",
+        "Tela HD grande",
+        "Aproximação NFC",
+        "Bateria premium",
+        "Design moderno",
+        "Ativação instantânea"
+      ],
+      "highlight": false,
+      "badge": ""
+    }
+  ]
+}

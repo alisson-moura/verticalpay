@@ -6,8 +6,13 @@ import { Header } from "../components/landpage/header";
 import { Hero } from "../components/landpage/hero";
 import { MachinePricing } from "../components/landpage/machine-pricing";
 import { PwFeature } from "../components/landpage/pw-feature";
+import { getPricingData } from "./actions/pricing";
 
-export default function Home() {
+export default async function Home() {
+  const pricingData = await getPricingData();
+  const taxData = pricingData?.taxes || [];
+  const machines = pricingData?.machines || [];
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -37,10 +42,10 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <Header />
-      <Hero />
+      <Hero taxData={taxData} />
       <Benefits />
       <PwFeature />
-      <MachinePricing />
+      <MachinePricing machines={machines} />
       <Faq />
       <FooterCTA />
       <Footer />

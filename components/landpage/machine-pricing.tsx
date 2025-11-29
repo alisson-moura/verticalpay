@@ -4,63 +4,23 @@ import { Badge } from "@/components/ui/badge";
 import { Check, Smartphone, Zap, Shield } from "lucide-react";
 import Image from "next/image";
 
-export function MachinePricing() {
-  const machines = [
-    {
-      id: "l300",
-      name: "POS VerticalPay L300",
-      image: "/images/L300.png",
-      price: "R$ 600",
-      originalPrice: "R$ 700",
-      badge: "MAIS POPULAR",
-      description: "Ideal para estabelecimentos com alto volume de vendas",
-      features: [
-        "Tela touchscreen grande",
-        "Impressora integrada",
-        "Wi-Fi e 4G",
-        "Bateria de longa duração",
-        "Aceita todos os cartões",
-        "Pix grátis e ilimitado",
-      ],
-      highlight: true,
-    },
-    {
-      id: "p2",
-      name: "POS VerticalPay P2",
-      image: "/images/P2.png",
-      price: "R$ 500",
-      originalPrice: "R$ 550",
-      badge: "MELHOR CUSTO-BENEFÍCIO",
-      description: "Perfeita para pequenos negócios e vendedores autônomos",
-      features: [
-        "Design compacto",
-        "Teclado físico resistente",
-        "Conectividade 4G",
-        "Fácil de transportar",
-        "Menu intuitivo",
-        "Suporte 24/7",
-      ],
-      highlight: false,
-    },
-    {
-      id: "s920",
-      name: "POS VerticalPay S-920",
-      image: "/images/S-920.png",
-      price: "R$ 750",
-      originalPrice: "R$ 600",
-      description: "A mais moderna para vendas em movimento",
-      features: [
-        "Ultra portátil",
-        "Tela HD grande",
-        "Aproximação NFC",
-        "Bateria premium",
-        "Design moderno",
-        "Ativação instantânea",
-      ],
-      highlight: false,
-    },
-  ];
+interface Machine {
+  id: string;
+  name: string;
+  image: string;
+  price: string;
+  originalPrice?: string;
+  badge?: string;
+  description: string;
+  features: string[];
+  highlight: boolean;
+}
 
+interface MachinePricingProps {
+  machines: Machine[];
+}
+
+export function MachinePricing({ machines }: MachinePricingProps) {
   return (
     <section id="maquinas" className="py-14 bg-background scroll-mt-20">
       <div className="container mx-auto px-4">
@@ -78,19 +38,17 @@ export function MachinePricing() {
           {machines.map((machine) => (
             <Card
               key={machine.id}
-              className={`relative border-2 transition-all duration-300 hover:shadow-xl ${
-                machine.highlight
+              className={`relative border-2 transition-all duration-300 hover:shadow-xl ${machine.highlight
                   ? "border-primary shadow-lg scale-105"
                   : "border-gray-200 hover:border-primary/50"
-              }`}
+                }`}
             >
               {machine.badge && (
                 <Badge
-                  className={`absolute -top-3 left-1/2 transform -translate-x-1/2 z-10 ${
-                    machine.highlight
+                  className={`absolute -top-3 left-1/2 transform -translate-x-1/2 z-10 ${machine.highlight
                       ? "bg-primary text-white"
                       : "bg-secondary text-secondary-foreground"
-                  }`}
+                    }`}
                 >
                   {machine.badge}
                 </Badge>

@@ -4,7 +4,17 @@ import { RainbowButton } from "../magicui/rainbow-button";
 import { TaxCards } from "./tax-cards";
 import { ContactModal } from "./contact-form";
 
-export function Hero() {
+interface TaxItem {
+  value: string;
+  label: string;
+  color: string;
+}
+
+interface HeroProps {
+  taxData: TaxItem[];
+}
+
+export function Hero({ taxData }: HeroProps) {
   return (
     <section
       id="hero"
@@ -26,7 +36,7 @@ export function Hero() {
               querem lucrar mais, com máquinas seguras, fáceis de usar e taxas
               que cabem no seu bolso.
             </p>
-            <TaxCards />
+            <TaxCards taxData={taxData} />
             <ContactModal>
               <RainbowButton size="lg" className="w-full">
                 <Phone className="h-4 w-4 mr-4" />

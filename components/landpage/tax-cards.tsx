@@ -1,11 +1,14 @@
-export function TaxCards() {
-  const taxData = [
-    { value: "1,49%%", label: "no Pix", color: "text-purple-600" },
-    { value: "1,49%", label: "no Débito", color: "text-primary" },
-    { value: "2,37%", label: "no Crédito 1x", color: "text-primary" },
-    { value: "5,02%", label: "no Crédito 21x", color: "text-purple-600" },
-  ];
+interface TaxItem {
+  value: string;
+  label: string;
+  color: string;
+}
 
+interface TaxCardsProps {
+  taxData: TaxItem[];
+}
+
+export function TaxCards({ taxData }: TaxCardsProps) {
   return (
     <div className="space-y-4">
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
